@@ -1,0 +1,29 @@
+.artist {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    padding: 0 32px 24px;
+    background-image: url("https://tunnel.ru/tmp/2JknMeQjSw0KymYPOGzL/01.jpg");
+    background-size: cover;
+
+    .header {
+      flex-grow: 1;
+      padding: 24px 0 0;
+    }
+  }
+
+  &__name {
+    font-size: 96px;
+    font-weight: bold;
+  }
+
+  &__content {
+    background-color: #121212;
+    flex-grow: 1;
+  }
+}

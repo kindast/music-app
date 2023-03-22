@@ -1,0 +1,58 @@
+.sidebar {
+  background: black;
+  width: 200px;
+  padding: 20px;
+  user-select: none;
+
+  a {
+    color: #9c9c9c;
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+
+      svg {
+        fill: #9c9c9c;
+        width: 28px;
+        height: 28px;
+      }
+
+      span {
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: white;
+        svg {
+          fill: white;
+          opacity: 1;
+        }
+      }
+    }
+
+    .liked-songs {
+      background: linear-gradient(135deg, #450af5, #c4efd9);
+      height: 24px;
+      width: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      border-radius: 3px;
+      svg {
+        fill: white;
+        height: 12px;
+        width: 12px;
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+.active {
+  color: white;
+}

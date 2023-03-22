@@ -1,0 +1,53 @@
+.library {
+  background: #121212;
+  height: 100%;
+
+  &__header {
+    padding: 16px 0;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 24px 32px 0;
+  }
+
+  &__cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0 32px;
+  }
+
+  &__card {
+    cursor: pointer;
+    background: #181818;
+    padding: 16px;
+    user-select: none;
+    border-radius: 5px;
+
+    &:hover {
+      background: #2b2b2b;
+    }
+
+    img {
+      height: 200px;
+      width: 200px;
+      margin-bottom: 16px;
+      border-radius: 5px;
+    }
+  }
+
+  &__card__name {
+    display: flex;
+    flex-direction: column;
+    span {
+      margin-bottom: 4px;
+      &:first-of-type {
+        font-size: 16px;
+        font-weight: 500;
+      }
+      &:last-of-type {
+        font-size: 14px;
+        color: #b3b3b3;
+      }
+    }
+  }
+}

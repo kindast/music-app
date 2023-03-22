@@ -1,0 +1,102 @@
+@import "../../scss/variables";
+
+.player {
+  background: #181818;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  user-select: none;
+
+  &__song-info {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    &__song-name {
+      margin-left: 16px;
+
+      span {
+        &:first-of-type {
+          font-size: 14px;
+        }
+        &:last-of-type {
+          color: #9c9c9c;
+          font-size: 11px;
+        }
+      }
+    }
+
+    img {
+      width: 56px;
+      height: 56px;
+    }
+
+    svg {
+      margin-left: 20px;
+    }
+  }
+
+  &__controls {
+    width: 40%;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  &__play-btn {
+    cursor: pointer;
+    background: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+  }
+
+  &__skip-btn {
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    fill: $gray;
+
+    &:hover {
+      fill: white;
+      transition: fill linear 0.1s;
+    }
+  }
+
+  &__seekbar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    span {
+      font-size: 12px;
+      color: $light-gray;
+    }
+    input {
+      width: 100%;
+    }
+  }
+
+  &__volume {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 30%;
+    svg {
+      fill: $gray;
+      margin-right: 5px;
+    }
+  }
+}
