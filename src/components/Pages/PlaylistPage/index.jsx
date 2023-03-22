@@ -86,13 +86,19 @@ function PlaylistPage() {
         <div className="playlist__info">
           <span>Album</span>
           <span className="info__name">{playlist?.name}</span>
-          <span>
-            {playlist?.artist} • {playlist?.year}
-          </span>
+          <div>
+            <span
+              className="artist__link"
+              onClick={() => navigate(`/artist/${playlist?.artist.id}`)}
+            >
+              {playlist?.artist.name}
+            </span>{" "}
+            • {playlist?.year}
+          </div>
         </div>
       </div>
       <div className="playlist__controls">
-        {playlistId != null && playlist.id === playlistId && isPlaying ? (
+        {playlistId != null && playlist?.id === playlistId && isPlaying ? (
           <div
             className="playlist__play-btn"
             onClick={() => {
@@ -210,7 +216,12 @@ function PlaylistPage() {
                 >
                   {song.name}
                 </span>
-                <span>{song.artist.name}</span>
+                <span
+                  className="artist__link"
+                  onClick={() => navigate(`/artist/${playlist?.artist.id}`)}
+                >
+                  {song.artist.name}
+                </span>
               </div>
               <div className="song__end">
                 {song.isLiked ? (

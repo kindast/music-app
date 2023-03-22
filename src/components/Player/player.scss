@@ -17,6 +17,10 @@
       margin-left: 16px;
 
       span {
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
         &:first-of-type {
           font-size: 14px;
         }
@@ -33,6 +37,7 @@
     }
 
     svg {
+      cursor: pointer;
       margin-left: 20px;
     }
   }

@@ -45,7 +45,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/library" element={<Library />} />
             <Route path="/library/songs" element={<LikedSongsPage />} />
-            <Route path="/albums/:id" element={<PlaylistPage />} />
+            <Route path="/album/:id" element={<PlaylistPage />} />
             <Route path="/artist/:id" element={<Artist />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

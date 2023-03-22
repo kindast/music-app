@@ -177,4 +177,11 @@
       }
     }
   }
+
+  .artist__link {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

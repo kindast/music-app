@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   setQueueId,
   setIsPlaying,
@@ -11,6 +12,7 @@ import "./player.scss";
 function Player() {
   const { songs, queueId, isPlaying } = useSelector((state) => state.queue);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
   const [volume, setVolume] = useState(100);
   const [progress, setProgress] = useState(0);
@@ -142,9 +144,21 @@ function Player() {
       <div className="player__song-info">
         <img src={songs[queueId].cover} alt="cover" />
         <div className="player__song-info__song-name">
-          <span>{songs[queueId].name}</span>
+          <span
+            onClick={() => {
+              navigate(`/album/${songs[queueId].album.id}`);
+            }}
+          >
+            {songs[queueId].name}
+          </span>
           <br />
-          <span>{songs[queueId].artist.name}</span>
+          <span
+            onClick={() => {
+              navigate(`/artist/${songs[queueId].artist.id}`);
+            }}
+          >
+            {songs[queueId].artist.name}
+          </span>
         </div>
         {songs[queueId].isLiked ? (
           <svg

@@ -52,7 +52,6 @@ function LikedSongsPage() {
       .then((res) => {
         if (res.status === 200) {
           dispatch(setLikeSong(song.id));
-          dispatch(removeSong(song.id));
         }
       });
   };
@@ -170,7 +169,12 @@ function LikedSongsPage() {
                 >
                   {song.name}
                 </span>
-                <span>{song.artist.name}</span>
+                <span
+                  className="artist__link"
+                  onClick={() => navigate(`/artist/${song.artist.id}`)}
+                >
+                  {song.artist.name}
+                </span>
               </div>
               <div className="song__end">
                 {song.isLiked ? (

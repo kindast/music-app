@@ -40,7 +40,7 @@ function Library() {
               className="library__card"
               key={album.id}
               onClick={() => {
-                navigate(`/albums/${album.id}`);
+                navigate(`/album/${album.id}`);
               }}
             >
               <img src={album.cover} />
