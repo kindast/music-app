@@ -8,6 +8,7 @@ import {
 } from "../../redux/slices/queueSlice";
 import axios from "axios";
 import "./player.scss";
+import { domain } from "../../variables";
 
 function Player() {
   const { songs, queueId, isPlaying } = useSelector((state) => state.queue);
@@ -32,11 +33,11 @@ function Player() {
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (audio.src !== songs[queueId].src) {
-      audio.src = songs[queueId].src;
+    if (audio.src !== songs[queueId].source) {
+      audio.src = songs[queueId].source;
       setProgress(0);
       setMaxProgress(audio.duration);
-      document.title = `${songs[queueId].name} • ${songs[queueId].artist.name}`;
+      document.title = `${songs[queueId].name} • ${songs[queueId].artists[0]?.name}`;
       if (isPlaying) {
         audio.play();
       }
@@ -50,7 +51,7 @@ function Player() {
       document.title = "MusicBox";
     } else {
       audio.play();
-      document.title = `${songs[queueId].name} • ${songs[queueId].artist.name}`;
+      document.title = `${songs[queueId].name} • ${songs[queueId].artists[0]?.name}`;
     }
   }, [isPlaying]);
 
@@ -121,7 +122,7 @@ function Player() {
 
   const likeSong = (song) => {
     axios
-      .get(`https://localhost:44332/api/like-song?id=${song.id}`, {
+      .get(`${domain}/api/like-song?id=${song.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -139,10 +140,10 @@ function Player() {
         onTimeUpdate={updateTime}
         onEnded={onEnded}
       >
-        <source src={songs[queueId].src} type="audio/mp3" />
+        <source src={songs[queueId].source} type="audio/mp3" />
       </audio>
       <div className="player__song-info">
-        <img src={songs[queueId].cover} alt="cover" />
+        <img src={songs[queueId].album.cover} alt="cover" />
         <div className="player__song-info__song-name">
           <span
             onClick={() => {
@@ -154,10 +155,10 @@ function Player() {
           <br />
           <span
             onClick={() => {
-              navigate(`/artist/${songs[queueId].artist.id}`);
+              navigate(`/artist/${songs[queueId].artists[0]?.id}`);
             }}
           >
-            {songs[queueId].artist.name}
+            {songs[queueId].artists[0]?.name}
           </span>
         </div>
         {songs[queueId].isLiked ? (

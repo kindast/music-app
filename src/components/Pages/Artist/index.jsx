@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../Header";
 import axios from "axios";
 import "./artist.scss";
+import { domain } from "../../../variables";
 
 function Artist() {
   const [artist, setArtist] = useState(null);
@@ -14,7 +15,7 @@ function Artist() {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:44332/api/artist?id=${id}`, {
+      .get(`${domain}/api/artist?id=${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -35,7 +36,7 @@ function Artist() {
         className="artist__header"
         style={{
           backgroundImage: `${
-            artist?.avatar != null ? `url(${artist?.avatar})` : "none"
+            artist?.avatarUrl != null ? `url(${artist?.avatarUrl})` : "none"
           }`,
         }}
       >

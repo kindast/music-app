@@ -10,6 +10,7 @@ import {
   nextRoute,
   previousRoute,
 } from "../../redux/slices/historySlice";
+import { domain } from "../../variables";
 
 function Header() {
   const { token } = useSelector((state) => state.auth);
@@ -24,7 +25,7 @@ function Header() {
   useEffect(() => {
     dispatch(addRoute(location.pathname));
     axios
-      .get("https://localhost:44332/api/user", {
+      .get(`${domain}/api/user`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

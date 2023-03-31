@@ -6,11 +6,53 @@
   overflow-y: scroll;
   overflow-x: hidden;
 
-  .content {
-    font-size: 24px;
-    font-weight: 700;
+  &__params {
+    padding: 0px 32px;
+  }
+
+  &__input {
+    margin-bottom: 20px;
+    input {
+      border: 0;
+      border-radius: 500px;
+      color: #000;
+      height: 40px;
+      padding: 3px 40px;
+      text-overflow: ellipsis;
+      width: 100%;
+      max-width: 300px;
+      font-size: 0.875rem;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__types {
     display: flex;
-    align-items: center;
-    justify-content: center;
+  }
+
+  &__type {
+    padding: 5px 12px;
+    border-radius: 500px;
+    background-color: #232323;
+    cursor: pointer;
+    transition: all 0.4s;
+    margin-right: 10px;
+
+    &:hover {
+      background-color: #3e3e3e;
+    }
+  }
+
+  &__type__active {
+    background-color: white;
+    padding: 5px 12px;
+    border-radius: 500px;
+    color: black;
+    cursor: pointer;
+    transition: all 0.4s;
+    margin-right: 10px;
   }
 }

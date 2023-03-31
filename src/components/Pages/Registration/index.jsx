@@ -4,6 +4,7 @@ import "./registration.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken, saveToken } from "../../../redux/slices/authSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { domain } from "../../../variables";
 
 function Authorization() {
   const dispath = useDispatch();
@@ -22,7 +23,7 @@ function Authorization() {
     if (password === confirmPassword) {
       axios
         .post(
-          `https://localhost:44332/api/reg?username=${username}&password=${password}&email=${email}`
+          `${domain}/api/register?username=${username}&password=${password}&email=${email}`
         )
         .then((res) => {
           console.log(res.data);

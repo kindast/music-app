@@ -9,6 +9,10 @@
   padding: 0 16px;
   user-select: none;
 
+  audio {
+    visibility: hidden;
+  }
+
   &__song-info {
     display: flex;
     align-items: center;

@@ -12,6 +12,7 @@ import {
 } from "../../../redux/slices/queueSlice";
 import Header from "../../Header";
 import "./playlist-page.scss";
+import { domain } from "../../../variables";
 
 function PlaylistPage() {
   const { id } = useParams();
@@ -31,7 +32,7 @@ function PlaylistPage() {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:44332/api/album?id=${id}`, {
+      .get(`${domain}/api/album?id=${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -49,7 +50,7 @@ function PlaylistPage() {
 
   const likeAlbum = () => {
     axios
-      .get(`https://localhost:44332/api/like-album?id=${id}`, {
+      .get(`${domain}/api/like-album?id=${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -61,7 +62,7 @@ function PlaylistPage() {
 
   const likeSong = (song) => {
     axios
-      .get(`https://localhost:44332/api/like-song?id=${song.id}`, {
+      .get(`${domain}/api/like-song?id=${song.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -153,7 +154,7 @@ function PlaylistPage() {
             </svg>
           </span>
         </div>
-        {playlist?.songs.map((song, index) => {
+        {playlist?.songs?.map((song, index) => {
           return (
             <div className="playlist__song" key={song.id}>
               <div className="song__number">
@@ -218,9 +219,11 @@ function PlaylistPage() {
                 </span>
                 <span
                   className="artist__link"
-                  onClick={() => navigate(`/artist/${playlist?.artist.id}`)}
+                  onClick={() =>
+                    navigate(`/artist/${playlist?.artists[0]?.id}`)
+                  }
                 >
-                  {song.artist.name}
+                  {song.artists[0]?.name}
                 </span>
               </div>
               <div className="song__end">

@@ -9,15 +9,15 @@ import {
   setPlaylistId,
   setSongs,
   setLikeSong,
-  removeSong,
 } from "../../../redux/slices/queueSlice";
 import Header from "../../Header";
 import "./playlist-page.scss";
+import { domain } from "../../../variables";
 
 const likedPlaylist = {
   id: 0,
   name: "Liked Songs",
-  artist: "You",
+  artist: { name: "You" },
   cover: "https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png",
 };
 
@@ -31,13 +31,12 @@ function LikedSongsPage() {
 
   useEffect(() => {
     axios
-      .get("https://localhost:44332/api/liked-songs", {
+      .get(`${domain}/api/liked-songs`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         if (res.status === 200) {
-          const songs = res.data.songs;
-          dispatch(setPlaylist({ ...likedPlaylist, songs }));
+          dispatch(setPlaylist({ ...likedPlaylist, songs: res.data }));
         } else {
           navigate("/*");
         }
@@ -46,12 +45,14 @@ function LikedSongsPage() {
 
   const likeSong = (song) => {
     axios
-      .get(`https://localhost:44332/api/like-song?id=${song.id}`, {
+      .get(`${domain}/api/like-song?id=${song.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         if (res.status === 200) {
           dispatch(setLikeSong(song.id));
+        } else {
+          navigate("/*");
         }
       });
   };
@@ -64,11 +65,15 @@ function LikedSongsPage() {
         <div className="playlist__info">
           <span>Playlist</span>
           <span className="info__name">{playlist?.name}</span>
-          <span>{playlist?.artist}</span>
+          <span>{playlist?.artist.name}</span>
         </div>
       </div>
       <div className="playlist__controls">
-        {playlistId != null && playlist.id === playlistId && isPlaying ? (
+        {playlistId != null &&
+        playlist != null &&
+        playlist.id === playlistId &&
+        isPlaying &&
+        playlist.songs.lenght > 0 ? (
           <div
             className="playlist__play-btn"
             onClick={() => {
@@ -171,9 +176,9 @@ function LikedSongsPage() {
                 </span>
                 <span
                   className="artist__link"
-                  onClick={() => navigate(`/artist/${song.artist.id}`)}
+                  onClick={() => navigate(`/artist/${song.artists[0]?.id}`)}
                 >
-                  {song.artist.name}
+                  {song.artists[0]?.name}
                 </span>
               </div>
               <div className="song__end">

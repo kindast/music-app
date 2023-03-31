@@ -4,6 +4,7 @@ import "./authorization.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { domain } from "../../../variables";
 
 function Authorization() {
   const dispatch = useDispatch();
@@ -16,11 +17,11 @@ function Authorization() {
     const password = passwordRef.current.value;
 
     axios
-      .post(
-        `https://localhost:44332/api/auth?username=${username}&password=${password}`
-      )
+      .get(`${domain}/api/authorize?username=${username}&password=${password}`)
       .then((res) => {
-        dispatch(setToken(res.data.access_token));
+        if (res.status === 200) {
+          dispatch(setToken(res.data.access_token));
+        }
       });
   };
 
