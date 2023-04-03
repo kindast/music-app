@@ -5,11 +5,11 @@ import "./notfound.scss";
 function NotFound() {
   return (
     <div className="notfound">
-      Not Found
-      <Link to="/">
-        <br />
-        Go Home
-      </Link>
+      <h1>Error 404</h1>
+      <p>Unfortunately, the requested page was not found.</p>
+      <p>
+        You can go back to the <Link to="/">home page</Link>.
+      </p>
     </div>
   );
 }

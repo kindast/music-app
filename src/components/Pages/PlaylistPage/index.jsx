@@ -90,7 +90,7 @@ function PlaylistPage() {
           <div>
             <span
               className="artist__link"
-              onClick={() => navigate(`/artist/${playlist?.artist.id}`)}
+              onClick={() => navigate(`/artist/${playlist?.artist?.id}`)}
             >
               {playlist?.artist.name}
             </span>{" "}
@@ -219,9 +219,7 @@ function PlaylistPage() {
                 </span>
                 <span
                   className="artist__link"
-                  onClick={() =>
-                    navigate(`/artist/${playlist?.artists[0]?.id}`)
-                  }
+                  onClick={() => navigate(`/artist/${song.artists[0]?.id}`)}
                 >
                   {song.artists[0]?.name}
                 </span>

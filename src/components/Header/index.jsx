@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setToken } from "../../redux/slices/authSlice";
+import { setToken, setUser } from "../../redux/slices/authSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./header.scss";
 import {
@@ -13,9 +13,8 @@ import {
 import { domain } from "../../variables";
 
 function Header() {
-  const { token } = useSelector((state) => state.auth);
+  const { token, user } = useSelector((state) => state.auth);
   const { routes, routeId } = useSelector((state) => state.history);
-  const [user, setUser] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,23 +23,25 @@ function Header() {
 
   useEffect(() => {
     dispatch(addRoute(location.pathname));
-    axios
-      .get(`${domain}/api/user`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        if (res.status === 401) {
-          dispatch(setToken(null));
-        } else {
-          setUser(res.data);
-        }
-      })
-      .catch((err) => {
-        if (err.code === "ERR_NETWORK") {
-          dispatch(setToken(null));
-          navigate("/");
-        }
-      });
+    if (user === null) {
+      axios
+        .get(`${domain}/api/user`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          if (res.status === 401) {
+            dispatch(setToken(null));
+          } else {
+            dispatch(setUser(res.data));
+          }
+        })
+        .catch((err) => {
+          if (err.code === "ERR_NETWORK") {
+            dispatch(setToken(null));
+            navigate("/");
+          }
+        });
+    }
   }, []);
 
   useEffect(() => {
@@ -59,6 +60,7 @@ function Header() {
 
   const logOut = () => {
     dispatch(setToken(null));
+    dispatch(setUser(null));
     setIsOpen(false);
     navigate("/");
   };
@@ -105,7 +107,7 @@ function Header() {
           className="header__user"
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          {user.username}
+          {user?.username}
           {isOpen ? (
             <svg width="16" height="16" viewBox="0 0 16 16" fill="white">
               <path d="M14 10 8 4l-6 6h12z"></path>

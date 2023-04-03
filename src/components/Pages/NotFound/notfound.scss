@@ -1,7 +1,27 @@
 .notfound {
   background: #2b2b2b;
-  height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  margin: 0 auto;
+  padding: 50px 20px;
+  text-align: center;
+
+  h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+  a {
+    color: #1a73e8;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 }

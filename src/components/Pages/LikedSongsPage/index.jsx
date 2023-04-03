@@ -17,7 +17,6 @@ import { domain } from "../../../variables";
 const likedPlaylist = {
   id: 0,
   name: "Liked Songs",
-  artist: { name: "You" },
   cover: "https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png",
 };
 
@@ -26,7 +25,7 @@ function LikedSongsPage() {
   const { playlist, playlistId, queueId, isPlaying } = useSelector(
     (state) => state.queue
   );
-  const { token } = useSelector((state) => state.auth);
+  const { token, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -65,7 +64,7 @@ function LikedSongsPage() {
         <div className="playlist__info">
           <span>Playlist</span>
           <span className="info__name">{playlist?.name}</span>
-          <span>{playlist?.artist.name}</span>
+          <span>{user?.username}</span>
         </div>
       </div>
       <div className="playlist__controls">
@@ -162,24 +161,27 @@ function LikedSongsPage() {
                   </svg>
                 )}
               </div>
-              <div className="song__name">
-                <span
-                  className={
-                    playlistId != null &&
-                    playlist.id === playlistId &&
-                    index === queueId
-                      ? "song__active"
-                      : "song__name__inactive"
-                  }
-                >
-                  {song.name}
-                </span>
-                <span
-                  className="artist__link"
-                  onClick={() => navigate(`/artist/${song.artists[0]?.id}`)}
-                >
-                  {song.artists[0]?.name}
-                </span>
+              <div className="song__info">
+                <img src={song.album.cover} />
+                <div className="song__name">
+                  <span
+                    className={
+                      playlistId != null &&
+                      playlist.id === playlistId &&
+                      index === queueId
+                        ? "song__active"
+                        : "song__name__inactive"
+                    }
+                  >
+                    {song.name}
+                  </span>
+                  <span
+                    className="artist__link"
+                    onClick={() => navigate(`/artist/${song.artists[0]?.id}`)}
+                  >
+                    {song.artists[0]?.name}
+                  </span>
+                </div>
               </div>
               <div className="song__end">
                 {song.isLiked ? (

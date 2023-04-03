@@ -16,6 +16,7 @@ import { loadToken, setToken } from "./redux/slices/authSlice";
 import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import Artist from "./components/Pages/Artist";
+import { domain } from "./variables";
 
 function App() {
   const { token } = useSelector((state) => state.auth);
@@ -25,7 +26,7 @@ function App() {
   useEffect(() => {
     dispatch(loadToken());
     axios
-      .get("https://localhost:44332/api/user", {
+      .get(`${domain}/api/user`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -57,7 +58,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Authorization />} />
       <Route path="/registration" element={<Registration />} />
-      <Route path="*" element={<NotFound />} />
+      <Route path="*" element={<Authorization />} />
     </Routes>
   );
 }

@@ -165,6 +165,17 @@
       }
     }
 
+    .song__info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      img {
+        width: 45px;
+        height: 45px;
+      }
+    }
+
     .song__name {
       display: flex;
       flex-direction: column;

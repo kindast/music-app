@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import "./authorization.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../../../redux/slices/authSlice";
@@ -11,6 +11,7 @@ function Authorization() {
   const navigate = useNavigate();
   const usernameRef = React.useRef();
   const passwordRef = React.useRef();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const Login = () => {
     const username = usernameRef.current.value;
@@ -19,9 +20,13 @@ function Authorization() {
     axios
       .get(`${domain}/api/authorize?username=${username}&password=${password}`)
       .then((res) => {
+        console.log(res);
         if (res.status === 200) {
           dispatch(setToken(res.data.access_token));
         }
+      })
+      .catch((err) => {
+        setErrorMessage("Wrong login or password");
       });
   };
 
@@ -34,6 +39,7 @@ function Authorization() {
         <label>Password</label>
         <input ref={passwordRef} type="password" placeholder="Password" />
         <button onClick={Login}>LOGIN</button>
+        <label>{errorMessage}</label>
       </div>
       <div className="login__bottom">
         <label>Don't have an account?</label>
